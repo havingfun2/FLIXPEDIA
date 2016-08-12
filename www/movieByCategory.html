@@ -1,0 +1,200 @@
+<ons-page ng-controller="movieByCat">
+  <ons-toolbar>
+    <div class="left">
+<ons-back-button>
+  Back
+</ons-back-button>
+    </div>
+    <div class="center">
+      {{category | capitalize}}
+    </div>
+    <div class="right">
+      <ons-toolbar-button>
+        <ons-icon icon="ion-ios7-search-strong" fixed-width="false" style="font-size: 26px; vertical-align: -4px;"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  
+  <ons-list class="timeline" modifier="noborder">
+  <div ons-lazy-repeat="MyDelegate">
+    <ons-list-item class="timeline-li" ng-repeat="item in items">
+      <ons-row>
+        <ons-col width="27%"  class="more--tappable" ng-click="gotoMovieDetails(item.id)">
+                    <div class="br-thin">
+                  </div>
+            <img ng-src="http://image.tmdb.org/t/p/w154/{{item.backdrop_path}}" class="thumbnail">
+                    <div class="container">
+                    <div class="category">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{item.vote_average}}</span></ons-icon>
+                     </div>
+                    <div class="br-thin">
+                  </div>
+                    <div class="category" style="font-size:11px; opacity:0.4">
+                     {{item.vote_count}} votes
+                  </div>
+                  </div>
+       
+        </ons-col>
+
+        <ons-col  width="67%" class="more--tappable"  ng-click="gotoMovieDetails(item.id)">
+          <div class="timline-from">
+            <span class="timeline-name">{{item.original_title}}</span><span ng-hide="item.release_date==''" style="font-size:11px; opacity:0.6">&nbsp;({{item.release_date| limitTo:4}})</span>
+
+
+
+          </div>
+
+          <div class="timeline-message" style="text-align:justify">
+            {{item.overview | limitTo:305}} <span ng-if="item.overview.length > 305">...</span>
+          </div>
+        </ons-col>
+        <span ng-init="showThePopup=false">
+<div class="popover popover--left" style="top: 20px; right: 20px;" ng-show="showThePopup==true">
+  <div class="popover__right-arrow"></div>
+
+  <div class="popover__content">
+    <div style="text-align: center;
+      opacity: 0.4; margin-top: 40px">Content</div>
+  </div>
+</div>
+</span>
+<!--id, original_title, release_date, poster_path-->
+        <ons-col width="6%" style="text-align: right;" class="more--tappable" ng-click="show(this, $event, item)">
+            <ons-icon
+              icon="ion-android-more-vertical"
+              size="25px"
+              style="color: #8E8E93;display: inline-block;">
+            </ons-icon>
+        </ons-col>
+
+
+
+   
+
+
+      </ons-row>
+      <br />
+    </ons-list-item>
+    </div>
+ 
+  </ons-list>
+
+ 
+
+<style>
+.reply-notification {
+  position: absolute;
+  right: 18px;
+  top: 28px;
+  font-size: 10px;
+  font-weight: 600;
+  height: 13px;
+  line-height: 13px;
+  padding: 0 4px;
+  min-width: 13px;
+}
+
+.tab-icon {
+  font-size: 28px;
+  vertical-align: -4px;
+}
+
+.timeline {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.timeline-li {
+  line-height: 1;
+  padding: 10px;
+  max-height: 200px;
+  min-height: 200px;  
+  overflow: hidden;
+}
+
+.timeline-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.timeline-date {
+  float: right;
+  font-size: 12px;
+  opacity: 0.35;
+}
+
+.timeline-from {
+
+}
+
+.timeline-name {
+  font-weight: 500;
+  line-height: 16px;
+  font-size: 15px;
+  margin-bottom: 6px;
+  /*
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;*/
+}
+
+.timeline-id {
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+.timeline-message {
+  margin-top: 4px;
+  font-size: 14px;
+  opacity: 0.8;
+  line-height: 1.15;
+}
+.thumbnail {
+  width: 90px;
+  height: 80px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+      .br-thin {
+      display: block;
+      margin: 4px 0;
+      }
+      .container{
+    text-align: center;
+}
+.category{
+    display: inline-block;
+}
+.justanothercol--tappable {
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+.justanothercol--tappable:active {
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.more--tappable {
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+.more--tappable:active {
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+</style>
+
+
+
+</ons-page>

@@ -1,0 +1,396 @@
+<ons-page ng-controller="searchGenericCtl">
+   <ons-toolbar>
+
+
+
+           <div class="center"> 
+           <ons-row ng-hide="hideTitle">
+               <ons-col align="left" width="40%">
+                   <ons-back-button ng-show="enableBackButton">
+                      Back
+                    </ons-back-button>
+               </ons-col>
+               <ons-col align="left" width="60%">
+                          <span>FlixPedia</span>
+               </ons-col>
+           </ons-row>
+
+           
+        <div class="navigation-bar">
+          <div class="navigation-bar__center">
+          <span >
+          <ons-row ng-init="inFormStyle={'width':'96%','margin':'5px 5px 5px 5px','text-align':'center'}; showCancel=false;searchColWidth='100%'">
+              
+    <ons-col width="{{searchColWidth}}">
+    <form ng-submit="searchMultipleTitle(searchText)" >
+      <input type="search" class="search-input" placeholder="Search for Movies.." ng-model="searchText" ng-keydown="getSearchKeywords(searchText)" ng-click="hideTitle=true; inFormStyle={'width':'96%','margin':'10px 50px 10px 10px','text-align':'left'}; showCancel=true; searchColWidth='75%'" ng-style="inFormStyle" >
+    </form>
+    </ons-col>
+    <ons-col ng-show="showCancel">
+    <button class="button button--quiet" ng-click="showCancel=false; hideTitle=false; searchColWidth='100%'; inFormStyle={'width':'96%','margin':'5px 5px 5px 5px','text-align':'center'}; showKeywords=false; searchText=''">Cancel</button>
+    </ons-col>
+    </ons-row>
+</div>
+</div>
+    </div>
+   </ons-toolbar>
+ <span ng-hide="showCancel">
+<br />
+</span>
+<span>
+
+        <ons-list  ng-show="showKeywords==true" ng-hide="showKeywords==false || keywordLength <= 2">
+
+        <ons-list-item modifier="chevron" class="list-item-container" ng-repeat="keyword in searchKeywords | orderBy: '-popularity'" ng-click="gotoMovieDetails(keyword.id)">
+          <div class="list-item-left">
+            <img ng-src="http://image.tmdb.org/t/p/w92/{{keyword.poster_path}}" class="avator">
+          </div>
+          <div class="list-item-right">
+            <div class="list-item-content">
+              <div class="name">{{keyword.original_title}}
+                <span class="lucent">({{keyword.release_date| limitTo:4}})</span>
+              </div>
+            </div>
+          </div>
+        </ons-list-item>
+        </ons-list>
+
+  </div>
+  </span>
+     <ons-list-header></ons-list-header>
+  <!--
+   <div class="navigation-bar">
+      <div class="navigation-bar__center">
+         <input type="search" class="search-input" style="width: 96%; margin: 6px auto 6px auto;" placeholder="Search" ng-model="searchText">
+      </div>
+   </div>
+   -->
+
+   <span ng-init="filterCriteria='movie'">
+   <!--
+   <div class="button-bar" style="width:98%; margin:1px auto 0;" >
+      <div class="button-bar__item" style="width:32%;" ng-init="filterCriteria='movie'">
+         <input type="radio" name="navi-segment-a"  checked  ng-click="filterCriteria='movie'">
+         <div class="button-bar__button" style="text-align:center">Movies</div>
+      </div>
+      <div class="button-bar__item">
+         <input type="radio" name="navi-segment-a"  ng-click="filterCriteria='tv'">
+         <div class="button-bar__button" style="text-align:center">TV Shows</div>
+      </div>
+      <div class="button-bar__item">
+         <input type="radio" name="navi-segment-a"  ng-click="filterCriteria='person'">
+         <div class="button-bar__button" style="text-align:center">Actors</div>
+      </div>
+   </div>
+   -->
+
+   <ons-list class="timeline" >
+      
+      <!-- known for... start      
+      -->
+
+      <span class="timeline-li" ng-repeat="item in items">
+      <ons-list-item class="timeline-li" ng-repeat="knownfor in item.known_for | filter:{media_type: filterCriteria}">
+        <ons-row>
+              <ons-col width="40px">
+              <span ng-if="(item.profile_path != '' && item.profile_path != null)">
+              <img src="http://image.tmdb.org/t/p/w154/{{item.profile_path}}" class="person-image">
+              </span>
+            <span ng-if="(item.profile_path == '' || item.profile_path == null)">
+<img src="images/default_person.png" class="person-image">
+            </span>
+              </ons-col>
+              <ons-col class="person-name" >
+                {{item.name}} known for ...
+              </ons-col>
+
+        </ons-row>
+            <div class="br-thin"></div>
+            <div class="br-thin"></div>
+        <ons-row>
+            <ons-col width="25%"  class="more--tappable" ng-click="gotoMovieDetails(knownfor.id)">
+               <div class="br-thin">
+               </div>
+               <span ng-if="img_src = (knownfor.media_type == 'person')? knownfor.profile_path : ((knownfor.backdrop_path != null && knownfor.backdrop_path != '')? knownfor.backdrop_path : knownfor.poster_path)">
+                  <!--<img ng-src="http://image.tmdb.org/t/p/w154/{{item.backdrop_path}}" class="thumbnail">-->
+                  <img ng-src="http://image.tmdb.org/t/p/w154/{{img_src}}" class="thumbnail">
+               </span>
+                <span ng-if="(knownfor.profile_path == null || knownfor.profile_path == null) && (knownfor.backdrop_path == null || knownfor.backdrop_path == '') && (knownfor.poster_path == null || knownfor.poster_path == '')">
+<img src="images/Movie.png"  class="thumbnail">
+                </span>
+               <div class="container">
+                  <div class="category">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{knownfor.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div class="category" style="font-size:11px; opacity:0.4">
+                     {{knownfor.vote_count}} votes
+                  </div>
+               </div>
+            </ons-col>
+            <ons-col  width="67%" class="more--tappable"  ng-click="gotoMovieDetails(knownfor.id)">
+               <div class="timline-from">
+                  <span class="timeline-name" ng-if="item_name = (knownfor.original_title != null && knownfor.original_title != '')? knownfor.original_title : knownfor.name">
+                  {{item_name}}
+                  </span>
+                  <span ng-show="knownfor.media_type=='movie' && (knownfor.release_date != null && knownfor.release_date != '')" style="font-size:11px; opacity:0.6">
+                  &nbsp;({{knownfor.release_date| limitTo:4}})
+                  </span>
+                  <span ng-show="knownfor.media_type=='tv' && (knownfor.first_air_date != null && knownfor.first_air_date != '')" style="font-size:11px; opacity:0.6">
+                  &nbsp;({{knownfor.first_air_date| limitTo:4}})
+                  </span>
+               </div>
+               <div class="timeline-message" style="text-align:justify">
+                  {{knownfor.overview | limitTo:305}} <span ng-if="knownfor.overview.length > 305">...</span>
+               </div>
+            </ons-col>
+                    <span ng-init="showThePopup=false">
+<div class="popover popover--left" style="top: 20px; right: 20px;" ng-show="showThePopup==true">
+  <div class="popover__right-arrow"></div>
+
+  <div class="popover__content">
+    <div style="text-align: center;
+      opacity: 0.4; margin-top: 40px">Content</div>
+  </div>
+</div>
+</span>
+            <ons-col width="8%" style="text-align: right;" class="more--tappable" ng-click="show(this, $event, knownfor)">
+               <ons-icon
+                  icon="ion-android-more-vertical"
+                  size="25px"
+                  style="color: #8E8E93;display: inline-block;"></ons-icon>
+            </ons-col>
+         </ons-row>
+         <br />
+        </ons-list-item>
+      </span>
+      <!-- known for... end-->
+      <ons-list-item class="timeline-li" ng-repeat="item in items | filter:{media_type: filterCriteria}">
+         <ons-row>
+            <ons-col width="25%"  class="more--tappable"  ng-click="gotoMovieDetails(item.id)">
+               <div class="br-thin">
+               </div>
+               <span ng-if="img_src = (item.media_type == 'person')? item.profile_path : ((item.backdrop_path != null && item.backdrop_path != '')? item.backdrop_path : item.poster_path)">
+                 <img ng-src="http://image.tmdb.org/t/p/w154/{{img_src}}" class="thumbnail">
+               </span>
+             <span ng-if="(item.media_type == 'person') && (item.profile_path == null || item.profile_path == null) && (item.backdrop_path == null || item.backdrop_path == '') && (item.poster_path == null || item.poster_path == '')">
+                    <img src="images/default_person.png" class="thumbnail">
+            </span>
+            <span ng-if="(item.media_type != 'person') && (item.profile_path == null || item.profile_path == null) && (item.backdrop_path == null || item.backdrop_path == '') && (item.poster_path == null || item.poster_path == '')">
+                    <img src="images/Movie.png" class="thumbnail">
+            </span>
+               <div class="container" ng-if="(item.media_type != 'person')">
+                  <div class="category">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{item.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div class="category" style="font-size:11px; opacity:0.4">
+                     {{item.vote_count}} votes
+                  </div>
+               </div>
+            </ons-col>
+            <ons-col  width="67%" class="more--tappable" ng-click="gotoMovieDetails(item.id)">
+               <div class="timline-from">
+                  <span class="timeline-name" ng-if="item_name = (item.original_title != null && item.original_title != '')? item.original_title : item.name">
+                  {{item_name}}
+                  </span>
+                  <span ng-show="item.media_type=='movie' && (item.release_date != null && item.release_date != '')" style="font-size:11px; opacity:0.6">
+                  &nbsp;({{item.release_date| limitTo:4}})
+                  </span>
+                  <span ng-show="item.media_type=='tv' && (item.first_air_date != null && item.first_air_date != '')" style="font-size:11px; opacity:0.6">
+                  &nbsp;({{item.first_air_date| limitTo:4}})
+                  </span>
+               </div>
+               <div class="timeline-message" style="text-align:justify">
+                  {{item.overview | limitTo:305}} <span ng-if="item.overview.length > 305">...</span>
+               </div>
+            </ons-col>
+            <ons-col width="8%" style="text-align: right;" class="more--tappable" ng-if="(item.media_type != 'person')">
+               <ons-icon
+                  icon="ion-android-more-vertical"
+                  size="25px"
+                  style="color: #8E8E93;display: inline-block;"></ons-icon>
+            </ons-col>
+         </ons-row>
+         <br />
+      </ons-list-item>
+   </ons-list>
+   </span>
+   <style>
+      .reply-notification {
+      position: absolute;
+      right: 18px;
+      top: 28px;
+      font-size: 10px;
+      font-weight: 600;
+      height: 13px;
+      line-height: 13px;
+      padding: 0 4px;
+      min-width: 13px;
+      }
+      .tab-icon {
+      font-size: 28px;
+      vertical-align: -4px;
+      }
+      .timeline {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      }
+      .timeline-li {
+      line-height: 1;
+      padding: 10px;
+      }
+      .timeline-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      }
+      .timeline-date {
+      float: right;
+      font-size: 12px;
+      opacity: 0.35;
+      }
+      .timeline-from {
+      }
+      .timeline-name {
+      font-weight: 500;
+      line-height: 16px;
+      font-size: 15px;
+      margin-bottom: 6px;
+      /*
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;*/
+      }
+      .timeline-id {
+      font-size: 14px;
+      opacity: 0.4;
+      }
+      .timeline-message {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.8;
+      line-height: 1.15;
+      }
+      .thumbnail {
+       
+      width: 90%;
+      height: 100%;
+       /*
+      width: 80px;
+      height: 80px;*/
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      }
+      .br-thin {
+      display: block;
+      margin: 4px 0;
+      }
+      .container{
+      text-align: center;
+      }
+      .category{
+      display: inline-block;
+      }
+      .justanothercol--tappable {
+      -webkit-transition: background-color 0.2s linear;
+      -moz-transition: background-color 0.2s linear;
+      -o-transition: background-color 0.2s linear;
+      transition: background-color 0.2s linear;
+      }
+      .justanothercol--tappable:active {
+      background-color: #d9d9d9;
+      -webkit-transition: none;
+      -moz-transition: none;
+      -o-transition: none;
+      transition: none;
+      }
+      .more--tappable {
+      -webkit-transition: background-color 0.2s linear;
+      -moz-transition: background-color 0.2s linear;
+      -o-transition: background-color 0.2s linear;
+      transition: background-color 0.2s linear;
+      }
+      .more--tappable:active {
+      background-color: #d9d9d9;
+      -webkit-transition: none;
+      -moz-transition: none;
+      -o-transition: none;
+      transition: none;
+      }
+      .person-name {
+  line-height: 44px;
+  font-size:14px; 
+  opacity:0.8;
+}
+
+.person-image {
+  width: 60%;
+  height: 60%;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+.list__item2 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  list-style: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  padding: 0 10px 0 10px;
+  margin: 0 0 0 0;
+  border-top: none;
+  border-bottom: 1px solid #ddd;
+  color: #1f1f21;
+  background-color: transparent;
+  min-height: 34px;
+  line-height: 34px;
+}
+
+.list__item__line-height2{
+    font-weight: 500;
+  line-height: 26px;
+   font-size: 13px;
+}
+.avator {
+  width: 40px;
+  height: 60px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.list-item-left {
+  width: 60px;
+  margin-right: -60px;
+  float: left;
+}
+.list-item-right {
+  width: 100%;
+  float: right;
+}
+.list-item-content {
+  margin-left: 50px;
+  margin-right: 30px;
+}
+
+.name {
+  font-weight: 500;
+  line-height: 16px;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.lucent {
+  opacity: 0.4;
+  font-size: 11px;
+}
+.list-item-container {
+  line-height: 1;
+  font-size: 14px;
+  padding: 8px 0px 8px 8px;
+}
+
+   </style>
+</ons-page>

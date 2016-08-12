@@ -1,0 +1,292 @@
+<ons-page ng-controller="movieDetailsCtl2" sliding-menu-ignore="true">
+   <ons-toolbar>
+      <div class="left">
+         <ons-back-button>Back</ons-back-button>
+      </div>
+      <div class="center"></div>
+   </ons-toolbar>
+   <ul class="list">
+      <li class="list__header__thin"></li>
+      <li class="list__header"><span style="font-weight: 500;font-size: 22px;">{{movieDetails.title}}</span><span style="opacity: 0.4; font-size: 14px;"> ({{movieDetails.release_year}})</span></li>
+      <li class="list__header"><span style="border:1px grey solid; border-radius: 3px; width:fit-content; width:-webkit-fit-content; width:-moz-fit-content; opacity: 0.4; font-size: 14px;">{{movieDetails.rating}}</span>
+         <span style="opacity: 0.4; font-size: 14px;"> {{movieDetails.duration2}} | 
+         </span>
+         <span style="opacity: 0.4; font-size: 14px;" ng-repeat="genre in movieDetails.genres" >
+         {{genre.title}}
+         </span>
+      </li>
+      <li class="list__header__thin"></li>
+   </ul>
+   <ons-list>
+      <div class="list-item-left">
+         <img ng-src="{{movieDetails.poster_120x171}}" />
+      </div>
+      <ons-list-item modifier="chevron" class="list-item-container">
+         <div class="list-item-right">
+            {{movieDetails.overview | limitTo:305}}
+         </div>
+      </ons-list-item>
+   </ons-list>
+   <li class="list__header"></li>
+   <ons-list>
+   <ons-list-item  class="list-item-container">
+      Director:    <span ng-repeat="director in movieDetails.directors" style="opacity: 0.5;">{{director.name}}</span>
+   </ons-list-item>
+   <ons-list-item class="list-item-container">
+      Writers:    <span ng-repeat="writer in movieDetails.writers" style="opacity: 0.5;">{{writer.name}}</span>
+   </ons-list-item>
+   <div class="button-bar" style="width:98%; margin:1px auto 0;">
+      <div class="button-bar__item" style="width:22%;">
+         <input type="radio" name="navi-segment-a" checked  ng-click="purchase=true;subscription=false;tv_everywhere=false;free=false">
+         <div class="button-bar__button">Purchase</div>
+      </div>
+      <div class="button-bar__item">
+         <input type="radio" name="navi-segment-a" ng-click="purchase=false;subscription=true;tv_everywhere=false;free=false">
+         <div class="button-bar__button">Subscription</div>
+      </div>
+      <div class="button-bar__item">
+         <input type="radio" name="navi-segment-a" ng-click="purchase=false;subscription=false;tv_everywhere=true;free=false">
+         <div class="button-bar__button">TV Everywhere</div>
+      </div>
+      <div class="button-bar__item" style="width:22%;">
+         <input type="radio" name="navi-segment-a" ng-click="purchase=false;subscription=false;tv_everywhere=false;free=true">
+         <div class="button-bar__button">Free</div>
+      </div>
+   </div>
+   <span ng-show="purchase" ng-hide="!purchase" >
+   <span ng-show="movieDetails.purchase_web_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Web</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.purchase_web_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.purchase_ios_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.purchase_ios_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.purchase_ios_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Android</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.purchase_android_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right" >
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%" >
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   </span>
+   
+   <span ng-show="subscription" ng-hide="!subscription" >
+   <span ng-show="movieDetails.subscription_web_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Web</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.subscription_web_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.subscription_ios_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.subscription_ios_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.subscription_android_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Android</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.subscription_android_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right" >
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%" >
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   </span>
+   
+   <span ng-show="tv_everywhere" ng-hide="!tv_everywhere" >
+   <span ng-show="movieDetails.subscription_web_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Web</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.tv_everywhere_web_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.tv_everywhere_ios_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.tv_everywhere_ios_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.tv_everywhere_android_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Android</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.tv_everywhere_android_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right" >
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%" >
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   </span>
+   
+   <span ng-show="free" ng-hide="!free" >
+   <span ng-show="movieDetails.free_web_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Web</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.free_web_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.free_ios_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.free_ios_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right">
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%">
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   <span ng-show="movieDetails.free_android_sources[0].display_name">
+   <ons-list>
+      <ons-list-header style="font-weight: bold">Android</ons-list-header>
+   </ons-list>
+   <ons-list ng-repeat="purchase in movieDetails.free_android_sources">
+      <ons-list-header style="text-align:center; opacity: 0.8; font-size: 14px;" >{{purchase.display_name}}</ons-list-header>
+      <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 14px;">
+         <ons-col align="right" >
+            {{format.format}}
+         </ons-col>
+         <ons-col align="right" width="25%" >
+            {{format.price | currency}}     
+         </ons-col>
+      </ons-row>
+   </ons-list>
+   </span>
+   </span>
+   <style>
+      .list-item-container {
+      line-height: 1;
+      font-size: 16px;
+      padding: 15px 0px 15px 15px;
+      }
+      .list-item-left {
+      width: 30%;
+      margin-right: -90px;
+      float: left;
+      }
+      .list-item-right {
+      width: 60%;
+      float: right;
+      }
+      .timeline-message {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.8;
+      line-height: 1.15;
+      }
+      .timeline-date {
+      float: right;
+      font-size: 12px;
+      opacity: 0.35;
+      }
+      .name {
+      font-weight: 500;
+      line-height: 16px;
+      font-size: 15px;
+      margin-bottom: 6px;
+      }
+   </style>
+</ons-page>

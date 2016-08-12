@@ -1,0 +1,432 @@
+{  
+   "id":50362,
+   "title":"Stranger than Fiction",
+   "release_year":2006,
+   "themoviedb":1262,
+   "alternate_titles":[  
+      "Stranger Than Fiction (2006)"
+   ],
+   "imdb":"tt0420223",
+   "release_date":"2006-11-10",
+   "rating":"PG-13",
+   "rottentomatoes":343950173,
+   "freebase":"\/m\/0bm2nq",
+   "wikipedia_id":4155050,
+   "metacritic":"http:\/\/www.metacritic.com\/movie\/stranger-than-fiction",
+   "common_sense_media":"https:\/\/www.commonsensemedia.org\/movie-reviews\/stranger-than-fiction",
+   "overview":"One morning, a seemingly average and generally solitary IRS agent named Harold Crick begins to hear a female voice narrating his every action, thought and feeling in alarmingly precise detail. Harold's carefully controlled life is turned upside down by this narration only he can hear, and when the voice declares that Harold Crick is facing imminent death, he realizes he must find out who is writing his story and persuade her to change the ending. The voice in Harold's head turns out to be the once celebrated, but now nearly forgotten, novelist Karen \"Kay\" Eiffel, who is struggling to find an ending for what might be her best book. Her only remaining challenge is to figure out a way to kill her main character, but little does she know that Harold Crick is alive and well and inexplicably aware of her words and her plans for him.",
+   "poster_120x171":"http:\/\/static-api.guidebox.com\/thumbnails_movies_small\/50362-7462125136-6145752799-6108074090-small-120x171.jpg",
+   "poster_240x342":"http:\/\/static-api.guidebox.com\/thumbnails_movies_medium\/50362-3825641531-6778933690-5378950364-medium-240x342.jpg",
+   "poster_400x570":"http:\/\/static-api.guidebox.com\/thumbnails_movies\/50362-3684624573-2298494666-3146139020-large-400x570.jpg",
+   "social":{  
+      "facebook":{  
+         "facebook_id":113211715355595,
+         "link":"https:\/\/www.facebook.com\/pages\/Stranger-than-Fiction\/113211715355595"
+      }
+   },
+   "genres":[  
+      {  
+         "id":6,
+         "title":"Comedy"
+      },
+      {  
+         "id":9,
+         "title":"Drama"
+      },
+      {  
+         "id":11,
+         "title":"Fantasy"
+      }
+   ],
+   "tags":[  
+      {  
+         "id":4835,
+         "tag":"author"
+      },
+      {  
+         "id":18043,
+         "tag":"irs agent"
+      },
+      {  
+         "id":5043,
+         "tag":"fate"
+      },
+      {  
+         "id":1955,
+         "tag":"death"
+      },
+      {  
+         "id":2962,
+         "tag":"professor"
+      }
+   ],
+   "duration":6780,
+   "trailers":{  
+      "web":[  
+         {  
+            "type":"Main Trailer",
+            "source":"guidebox",
+            "display_name":"Guidebox",
+            "link":"http:\/\/www.guidebox.com\/watch-now.php?video=29070",
+            "embed":"http:\/\/api-widget.guidebox.com\/embed.php?video=29070"
+         }
+      ],
+      "ios":[  
+         {  
+            "type":"Main Trailer",
+            "source":"guidebox",
+            "display_name":"Guidebox",
+            "link":"http:\/\/www.guidebox.com\/watch-now.php?video=29070",
+            "embed":"http:\/\/api-widget.guidebox.com\/embed.php?video=29070"
+         }
+      ],
+      "android":[  
+         {  
+            "type":"Main Trailer",
+            "source":"guidebox",
+            "display_name":"Guidebox",
+            "link":"http:\/\/www.guidebox.com\/watch-now.php?video=29070",
+            "embed":"http:\/\/api-widget.guidebox.com\/embed.php?video=29070"
+         }
+      ]
+   },
+   "writers":[  
+      {  
+         "id":527934,
+         "name":"Zach Helm"
+      }
+   ],
+   "directors":[  
+      {  
+         "id":518454,
+         "name":"Marc Forster"
+      }
+   ],
+   "cast":[  
+      {  
+         "id":554256,
+         "name":"Will Ferrell",
+         "character_name":"Harold Crick"
+      },
+      {  
+         "id":435741,
+         "name":"Maggie Gyllenhaal",
+         "character_name":"Ana Pascal"
+      },
+      {  
+         "id":133645,
+         "name":"Dustin Hoffman",
+         "character_name":"Professor Jules Hilbert"
+      },
+      {  
+         "id":150649,
+         "name":"Queen Latifah",
+         "character_name":"Penny Escher"
+      },
+      {  
+         "id":147338,
+         "name":"Ricky Adams",
+         "character_name":"Junge"
+      },
+      {  
+         "id":350076,
+         "name":"Denise Hughes",
+         "character_name":"Bus Fahrer"
+      },
+      {  
+         "id":188805,
+         "name":"Christian Stolte",
+         "character_name":"Vater des Junge"
+      },
+      {  
+         "id":622575,
+         "name":"William Dick",
+         "character_name":"IRS Co-Arbeiter"
+      },
+      {  
+         "id":40137,
+         "name":"Tony Hale",
+         "character_name":"Dave"
+      },
+      {  
+         "id":338486,
+         "name":"Peggy Roeder",
+         "character_name":"Polische Frau"
+      },
+      {  
+         "id":622126,
+         "name":"Emma Thompson",
+         "character_name":"Karen Eiffel"
+      },
+      {  
+         "id":334936,
+         "name":"Peter Grosz",
+         "character_name":"IRS Co-Worker #5"
+      },
+      {  
+         "id":441724,
+         "name":"Tonray Ho",
+         "character_name":"IRS Co-Worker #6"
+      },
+      {  
+         "id":283996,
+         "name":"Danny Rhodes",
+         "character_name":"Bakery Employee #1"
+      },
+      {  
+         "id":383573,
+         "name":"Linara Washington",
+         "character_name":"Bakery Employee #2"
+      }
+   ],
+   "free_web_sources":[  
+
+   ],
+   "free_ios_sources":[  
+
+   ],
+   "free_android_sources":[  
+
+   ],
+   "tv_everywhere_web_sources":[  
+
+   ],
+   "tv_everywhere_ios_sources":[  
+
+   ],
+   "tv_everywhere_android_sources":[  
+
+   ],
+   "subscription_web_sources":[  
+
+   ],
+   "subscription_ios_sources":[  
+
+   ],
+   "subscription_android_sources":[  
+
+   ],
+   "purchase_web_sources":[  
+      {  
+         "source":"itunes",
+         "display_name":"iTunes",
+         "link":"https:\/\/itunes.apple.com\/us\/movie\/stranger-than-fiction\/id277049296?uo=4&at=10laHb",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"12.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      },
+      {  
+         "source":"amazon_buy",
+         "display_name":"Amazon",
+         "link":"http:\/\/www.amazon.com\/gp\/product\/B008Y6YO2C?tag=guidebox-20",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"12.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      },
+      {  
+         "source":"vudu",
+         "display_name":"VUDU",
+         "link":"http:\/\/click.linksynergy.com\/fs-bin\/click?id=Pz66xbzAbFo&subid=&offerid=251672.1&type=10&tmpid=9417&RD_PARM1=http%3A%2F%2Fwww.vudu.com%2Fmovies%2F%23%21content%2F68546%2FStranger-Than-Fiction",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"13.99",
+               "format":"HDX",
+               "type":"purchase"
+            },
+            {  
+               "price":"13.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      },
+      {  
+         "source":"google_play",
+         "display_name":"Google Play",
+         "link":"https:\/\/play.google.com\/store\/movies\/details\/Stranger_Than_Fiction_2006?id=_ZZHtVSOHRA",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"12.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      },
+      {  
+         "source":"cinemanow",
+         "display_name":"CinemaNow",
+         "link":"http:\/\/www.cinemanow.com\/title\/132338",
+         "formats":[  
+            {  
+               "price":"10.00",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"14.00",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      },
+      {  
+         "source":"youtube_purchase",
+         "display_name":"YouTube",
+         "link":"http:\/\/www.youtube.com\/watch?v=_ZZHtVSOHRA",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"12.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      },
+      {  
+         "source":"flixster",
+         "display_name":"Flixster",
+         "link":"https:\/\/video.flixster.com\/movies\/stranger-than-fiction\/urn:dece:cid:eidr-s:D66B-4DB7-71D6-5A9F-0E63-G",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"13.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      }
+   ],
+   "purchase_ios_sources":[  
+      {  
+         "source":"itunes",
+         "display_name":"iTunes",
+         "link":"itms:\/\/itunes.apple.com\/us\/movie\/stranger-than-fiction\/id277049296?uo=4&at=10laHb",
+         "app_name":"iTunes",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"itms-apps:\/\/",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"12.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      }
+   ],
+   "purchase_android_sources":[  
+      {  
+         "source":"vudu",
+         "display_name":"VUDU",
+         "link":"vuduandroidapp:\/\/_type\/deeplink\/token\/?refid=&refcontentid=68546#!content%2F68546",
+         "app_name":"VUDU",
+         "app_link":1,
+         "app_required":1,
+         "app_download_link":"https:\/\/play.google.com\/store\/apps\/details?id=air.com.vudu.air.DownloaderTablet",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"13.99",
+               "format":"HDX",
+               "type":"purchase"
+            },
+            {  
+               "price":"13.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      },
+      {  
+         "source":"google_play",
+         "display_name":"Google Play",
+         "link":"https:\/\/play.google.com\/store\/movies\/details\/Stranger_Than_Fiction_2006?id=_ZZHtVSOHRA",
+         "app_name":"Google Play",
+         "app_link":0,
+         "app_required":0,
+         "app_download_link":"https:\/\/play.google.com\/store",
+         "formats":[  
+            {  
+               "price":"9.99",
+               "format":"SD",
+               "type":"purchase"
+            },
+            {  
+               "price":"12.99",
+               "format":"HD",
+               "type":"purchase"
+            }
+         ]
+      }
+   ],
+   "other_sources":{  
+      "tv_on_demand":[  
+         {  
+            "source":"xfinity_purchase",
+            "source_type":"purchase",
+            "gbid":"395415",
+            "display_name":"Xfinity",
+            "link":"http:\/\/xfinitytv.comcast.net\/watch\/5160989481224519112\/5160989481224519112\/movies#filter=vod&type=purchase",
+            "platform":"TV On Demand",
+            "formats":[  
+               {  
+                  "price":"9.99",
+                  "format":"SD",
+                  "type":"rent"
+               },
+               {  
+                  "price":"13.99",
+                  "format":"HD",
+                  "type":"rent"
+               }
+            ]
+         }
+      ]
+   },
+   "development_api_key":"You are currently using a temporary development API key.  This API key is for testing only.  You have used 145 of 250 available calls.  Please see the API docs (http:\/\/api.guidebox.com\/apidocs) for additional information or to generate a production API key."
+}

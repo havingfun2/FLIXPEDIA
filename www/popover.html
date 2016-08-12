@@ -1,0 +1,69 @@
+<ons-template id="popover.html" >
+   <ons-popover direction="left" cancelable>
+      <ons-list modifier="noborder" >
+         <ons-list-item ng-click="(favObj.bool==false)? addToFavorites() : removeFromFavorites();favObj.bool=!favObj.bool">
+            <!--;favVar=!favVar">   -->
+            <div class="br-thin"></div>
+            <span ng-show="favObj.bool==false" ng-hide="favObj.bool==true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-show="favObj.bool==true" ng-hide="favObj.bool==false">
+               <ons-icon
+                  icon="ion-ios-checkmark-empty"
+                  size="35px"
+                  fixed-width="false"
+                  style="color: #007AFF" ></ons-icon>
+               &nbsp;
+            </span>
+            Add to Favorites
+            &nbsp;
+            &nbsp;
+            <span ng-show="favObj.bool==false" ng-hide="favObj.bool==true">
+               <ons-icon
+                  icon="ion-ios-heart-outline"
+                  size="20px"
+                  fixed-width="false"
+                  style="color: red"></ons-icon>
+            </span>
+            <span ng-show="favObj.bool==true" ng-hide="favObj.bool==false">
+               <ons-icon
+                  icon="ion-ios-heart"
+                  size="20px"
+                  fixed-width="false"
+                  style="color: #FF2D55"></ons-icon>
+            </span>
+         </ons-list-item >
+         <ons-list-item  ng-click="(watchListObj.bool==false)? addToWatchList() : removeFromWatchList();watchListObj.bool=!watchListObj.bool">
+            <span ng-show="watchListObj.bool==false" ng-hide="watchListObj.bool==true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-show="watchListObj.bool==true" ng-hide="watchListObj.bool==false">
+               <ons-icon
+                  icon="ion-ios-checkmark-empty"
+                  size="35px"
+                  fixed-width="false"
+                  style="color: #007AFF" ></ons-icon>
+               &nbsp;
+            </span>
+            Add to Watch List
+               &nbsp;
+               <span  ng-show="watchListObj.bool==false" ng-hide="watchListObj.bool==true">
+                  <ons-icon
+                     icon="ion-ios-list-outline"
+                     size="20px"
+                     fixed-width="false"
+                     style="opacity: 0.5;"></ons-icon>
+               </span>
+               <span  ng-show="watchListObj.bool==true" ng-hide="watchListObj.bool==false">
+                  <ons-icon
+                     icon="ion-ios-list-outline"
+                     size="20px"
+                     fixed-width="false"
+                     style="color: #007AFF;"></ons-icon>
+               </span>
+         </ons-list-item>
+      </ons-list>
+   </ons-popover>
+   <style>
+      .br-thin {
+      display: block;
+      margin: 1px 0;
+      }
+   </style>
+</ons-template>

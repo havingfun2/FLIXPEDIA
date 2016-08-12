@@ -1,0 +1,521 @@
+<ons-page  ng-controller="movieDetailsCtl">
+   <span>
+      <ons-toolbar>
+         <div class="left">
+            <ons-back-button>Back</ons-back-button>
+         </div>
+         <div class="center"></div>
+      </ons-toolbar>
+      <ul class="list">
+         <li class="list__header__thin"></li>
+         <li class="list__header"><span style="font-weight: 500;font-size: 1.5625em;">{{tmdbData.title}}</span><span style="opacity: 0.4; font-size: 0.8750em;"> ({{tmdbData.release_date| limitTo:4}})</span></li>
+         <li class="list__header"><span style="border:6.3% grey solid; border-radius: 18.8%; width:fit-content; width:-webkit-fit-content; width:-moz-fit-content; opacity: 0.4; font-size: 0.875em;" ng-hide="guideboxDetails == null">{{guideboxDetails.rating}}</span>
+            <span style="opacity: 0.4; font-size: 0.875em;" ng-hide="guideboxDetails == null"> &nbsp;{{guideboxDetails.duration2}} | 
+            </span>
+            <span style="opacity: 0.4; font-size: 0.875em;" ng-repeat="genre in tmdbData.genres" >
+            {{genre.name}}{{$last ? '' : ($index==genre.length-2) ? ',' : ','}}
+            </span>
+         </li>
+         <li class="list__header__thin"></li>
+      </ul>
+      <ons-list>
+         <div class="poster-desc">
+            <div class="list-item-left-more"  ng-click="gotoImageDetails(tmdbData)">
+               <div class="br-thin"></div>
+               <img class = "img-poster" ng-src="http://image.tmdb.org/t/p/w154/{{tmdbData.backdrop_path}}" class="thumbnail">
+            </div>
+            <span class="overview"  ng-click="gotoDescDetails(tmdbData)">
+               {{tmdbData.overview | limitTo:305}}
+               <span ng-if="tmdbData.overview.length > 305">
+                  <ons-icon
+                     icon="ion-ios-more-outline"
+                     size="1.25em"
+                     fixed-width="false"
+                     ></ons-icon>
+               </span>
+            </span>
+         </div>
+         <ul class="list">
+            <li class="list__item">
+               <ons-icon icon="ion-star" style="color: #FF9500" size="1.375em"><span style="text-align: center; font-size:1.375em;color:black;opacity:0.8">&nbsp;{{tmdbData.vote_average}}</span>
+                  &nbsp;&nbsp;&nbsp;                  <span style="font-size:1.00em; color:black; opacity:0.3">
+                  {{tmdbData.vote_count}} votes
+                  </span>
+               </ons-icon>
+            </li>
+         </ul>
+      </ons-list>
+      <ons-list ng-show="(guideboxDetails.directors != '' && guideboxDetails.directors != null) || (guideboxDetails.writers != '' && guideboxDetails.writers != null)">
+      <li class="list__header"></li>
+      <ons-list-item  class="list-item-container" ng-show="guideboxDetails.directors != '' && guideboxDetails.directors != null">
+
+         Director:    <span ng-repeat="director in guideboxDetails.directors" style="opacity: 0.5;">{{director.name}}</span>
+      </ons-list-item>
+      
+      <ons-list-item class="list-item-container" ng-show="guideboxDetails.writers != '' && guideboxDetails.writers != null">
+         Writers:    <span ng-repeat="writer in guideboxDetails.writers" style="opacity: 0.5;">{{writer.name}}{{$last ? '' : ($index==writer.length-2) ? ' and' : ','}}
+         </span>
+      </ons-list-item>
+      <li class="list__header__thin">
+      </li>
+   <ons-list ng-init="limitCredits=4;">
+      <li class="list__header__thin">
+      </li>
+      <ons-list-header  style="font-weight: 500;font-size: 1.125em;">Cast</ons-list-header>
+      <li class="list__header__thin">
+      </li>
+      <ons-list-item  modifier="tappable" class="list-item-container2" ng-repeat="creditsData in credits | limitTo : limitCredits" ng-click="gotoPersonDetails(creditsData.id)">
+         <ons-row>
+            <ons-col width="15%" align="left" >
+               <div class="list-item-left"  ng-if="!(creditsData.profile_path == '' || creditsData.profile_path == null)">
+                  <img ng-src="http://image.tmdb.org/t/p/w45/{{creditsData.profile_path}}"  class="avator">
+               </div>
+               <div class="list-item-left" ng-if="(creditsData.profile_path == '' || creditsData.profile_path == null)">
+                  <img ng-src="images/default_person.png" class="avator">
+               </div>
+            </ons-col>
+            <ons-col width="25%" align="left" >
+               <div class="creditName">{{creditsData.name}}
+               </div>
+            </ons-col>
+            <ons-col width="30%" align="center" >
+               <ons-icon
+                  icon="ion-ios-more-outline"
+                  size="1.25em"
+                  fixed-width="false"
+                  style="padding-left: 2.0em;"></ons-icon>
+            </ons-col>
+            <ons-col width="30%" align="left">
+               <div class="creditName">{{creditsData.character}} </div>
+            </ons-col>
+         </ons-row>
+      </ons-list-item>
+      <span ng-click="toggleShowMoreLess()">
+         <li class="list__header__thin"></li>
+         <ons-list-header  style="opacity:0.5">
+            {{creditDisplayText}} &nbsp;&nbsp&nbsp
+            <ons-icon
+               icon={{creditIcon}}
+               fixed-width="false"></ons-icon>
+         </ons-list-header>
+         <li class="list__header__thin"></li>
+      </span>
+   </ons-list>
+   <br />
+   <ons-list>
+      <li class="list__header__thin"></li>
+      <ons-list-header  style="font-weight: 500;font-size: 1.125em;">Similar Movies</ons-list-header>
+      <li class="list__header__thin"></li>
+      <ons-list-item ng-hide="addMovieMode" class="list-item-container2" ng-repeat="keyword in similarMovies | limitTo : limitSimilar" modifier="tappable" ng-click="gotoMovieDetails(keyword.id)">
+         <ons-row>
+            <ons-col width="18%" align="left">
+               <div class="list-item-left">
+                  <img ng-src="http://image.tmdb.org/t/p/w92/{{keyword.poster_path}}" class="avator">
+               </div>
+            </ons-col>
+            <ons-col width="78%" align="left">
+               <div class="name">{{keyword.original_title}}
+                  <span class="lucent">({{keyword.release_date| limitTo:4}})</span>
+               </div>
+            </ons-col>
+         </ons-row>
+      </ons-list-item>
+      <span ng-click="toggleShowMoreLessSimilar()">
+         <li class="list__header__thin"></li>
+         <ons-list-header  style="opacity:0.5">
+            {{similarDisplayText}} &nbsp;&nbsp&nbsp
+            <ons-icon
+               icon={{similarIcon}}
+               fixed-width="false"></ons-icon>
+         </ons-list-header>
+         <li class="list__header__thin"></li>
+      </span>
+   </ons-list>
+   <br />
+      <ons-list-header  style="font-weight: 500;font-size: 1.125em;">Availability</ons-list-header>
+      <li class="list__header__thin">
+      </li>
+      <div class="button-bar" style="width:98%; margin:0.63em auto 0;" ng-init="purchaseData=false;subscriptionData=false;tv_everywhereData=false;freeData=false">
+         <div class="button-bar__item" ng-init="purchase=true" style="width:23%">
+            <input type="radio" name="navi-segment-a" checked  ng-click="purchase=true;subscription=false;tv_everywhere=false;free=false">
+            <div class="button-bar__button"  >Purchase</div>
+         </div>
+         <div class="button-bar__item"  style="width:25%">
+            <input type="radio" name="navi-segment-a" ng-click="purchase=false;subscription=true;tv_everywhere=false;free=false">
+            <div class="button-bar__button" >Subscription</div>
+         </div>
+         <div class="button-bar__item" style="width:28%">
+            <input type="radio" name="navi-segment-a" ng-click="purchase=false;subscription=false;tv_everywhere=true;free=false">
+            <div class="button-bar__button"  >TV Everywhere</div>
+         </div>
+         <div class="button-bar__item" style="width:23%">
+            <input type="radio" name="navi-segment-a" ng-click="purchase=false;subscription=false;tv_everywhere=false;free=true">
+            <div class="button-bar__button"  >Free</div>
+         </div>
+      </div>
+      <span ng-show="purchase" ng-hide="!purchase" >
+         <span ng-show="guideboxDetails.purchase_web_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Web</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.purchase_web_sources">
+               <ons-list-header style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-header>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;" modifier="tappable">
+               <ons-row >
+                  <ons-col align="right">
+                     {{format.type | capitalize}}
+                  </ons-col>
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.purchase_ios_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.purchase_ios_sources">
+               <ons-list-header style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-header>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row>
+                    <ons-col align="right">
+                     {{format.type | capitalize}}
+                  </ons-col>
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.purchase_ios_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Android</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.purchase_android_sources">
+               <ons-list-header style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-header>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row >
+                                 <ons-col align="right">
+                     {{format.type | capitalize}}
+                  </ons-col>
+                  <ons-col align="right" >
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%" >
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <!--No Data Available Source-->
+         <span ng-hide="guideboxDetails.purchase_web_sources.length > 0 || guideboxDetails.purchase_ios_sources.length > 0 || guideboxDetails.purchase_android_sources.length > 0">
+         <ons-list>
+             <ons-list-item modifier="tappable"></ons-list-item>
+             <ons-list-item modifier="tappable"><span style="font-size:1.375em; opacity:0.2; text-align: center; font-weight: bold; padding-left: 35%;">No Results</span></ons-list-item>
+             <ons-list-item modifier="tappable"></ons-list-item>
+         </ons-list>
+         </span>
+         <!--End-->
+      </span>
+      <span ng-show="subscription" ng-hide="!subscription" >
+         <span ng-show="guideboxDetails.subscription_web_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Web</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.subscription_web_sources">
+               <ons-list-item style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-item>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row >
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.subscription_ios_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.subscription_ios_sources">
+               <ons-list-header style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-header>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row >
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.subscription_android_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Android</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.subscription_android_sources">
+               <ons-list-header style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-header>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row >
+                  <ons-col align="right" >
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%" >
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+        <!--No Data Available Source-->
+         <span ng-hide="guideboxDetails.subscription_web_sources.length > 0 || guideboxDetails.subscription_ios_sources.length > 0 || guideboxDetails.subscription_android_sources.length > 0">
+         <ons-list>
+             <ons-list-item modifier="tappable"></ons-list-item>
+             <ons-list-item modifier="tappable"><span style="font-size:1.375em; opacity:0.2; text-align: center; font-weight: bold; padding-left: 35%;">No Results</span></ons-list-item>
+             <ons-list-item modifier="tappable"></ons-list-item>
+         </ons-list>
+         </span>
+         <!--End-->
+      </span>
+      <span ng-show="tv_everywhere" ng-hide="!tv_everywhere" >
+         <span ng-show="guideboxDetails.tv_everywhere_web_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Web</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.tv_everywhere_web_sources">
+               <ons-list-item style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-item>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row >
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.tv_everywhere_ios_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.tv_everywhere_ios_sources">
+               <ons-list-item style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-item>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row>
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.tv_everywhere_android_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Android</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.tv_everywhere_android_sources">
+               <ons-list-item style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-item>
+               <ons-row ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+                  <ons-col align="right" >
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%" >
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+            </ons-list>
+         </span>
+                 <!--No Data Available Source-->
+         <span ng-hide="guideboxDetails.tv_everywhere_web_sources.length > 0 || guideboxDetails.tv_everywhere_ios_sources.length > 0 || guideboxDetails.tv_everywhere_android_sources.length > 0">
+         <ons-list>
+             <ons-list-item modifier="tappable"></ons-list-item>
+             <ons-list-item modifier="tappable"><span style="font-size:1.375em; opacity:0.2; text-align: center; font-weight: bold; padding-left: 35%;">No Results</span></ons-list-item>
+             <ons-list-item modifier="tappable"></ons-list-item>
+         </ons-list>
+         </span>
+         <!--End-->
+      </span>
+
+      <span ng-show="free" ng-hide="!free" >
+         <span ng-show="movieDetails.free_web_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Web</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="guideboxDetails in movieDetails.free_web_sources">
+               <ons-list-item style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-item>
+               <ons-list-item ng-repeat="format in guideboxDetails.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row>
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.free_ios_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">iOS</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.free_ios_sources">
+               <ons-list-item style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-item>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row >
+                  <ons-col align="right">
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+         <span ng-show="guideboxDetails.free_android_sources[0].display_name">
+            <ons-list>
+               <ons-list-header style="font-weight: bold">Android</ons-list-header>
+            </ons-list>
+            <ons-list ng-repeat="purchase in guideboxDetails.free_android_sources">
+               <ons-list-item style="text-align:center; opacity: 0.8; font-size: 0.875em;" >{{purchase.display_name}}</ons-list-item>
+               <ons-list-item ng-repeat="format in purchase.formats" style="opacity: 0.8; font-size: 0.875em;">
+               <ons-row>
+                  <ons-col align="right" >
+                     {{format.format}}
+                  </ons-col>
+                  <ons-col align="right" width="25%" style="text-align:left">
+                     {{format.price | currency}}     
+                  </ons-col>
+               </ons-row>
+               </ons-list-item>
+            </ons-list>
+         </span>
+             <!--No Data Available Source-->
+         <span ng-hide="guideboxDetails.free_web_sources.length > 0 || guideboxDetails.free_ios_sources.length > 0 || guideboxDetails.free_android_sources.length > 0">
+         <ons-list>
+             <ons-list-item modifier="tappable"></ons-list-item>
+             <ons-list-item modifier="tappable"><span style="font-size:1.375em; opacity:0.2; text-align: center; font-weight: bold; padding-left: 35%;">No Results</span></ons-list-item>
+             <ons-list-item modifier="tappable"></ons-list-item>
+         </ons-list>
+         </span>
+         <!--End-->
+      </span>
+
+   </span>
+
+   <style>
+      .list-item-container {
+      line-height: 1;
+      font-size: 1.00em;
+      padding: 2% 0% 2% 2%;
+      }
+      .list-item-right {
+      width: 60%;
+      /*float: right;*/
+      }
+      .timeline-message {
+      margin-top: 1%;
+      font-size: 0.875em;
+      opacity: 0.8;
+      line-height: 1.15;
+      }
+      .timeline-date {
+      float: right;
+      font-size: 0.75em;
+      opacity: 0.35;
+      }
+      .name {  
+      font-weight: 500;
+      line-height: 100%;
+      font-size: 1.00em;
+      margin-bottom: 6px;
+        padding-top: 17px;
+      }
+      .creditName {
+            
+      font-weight: 500;
+      line-height: 100%;
+      font-size: 1.00em;
+      margin-bottom: 6px;
+        padding-top: 17px;
+      }
+      .br-thin {
+      display: block;
+      margin: 4px 0;
+      }
+      .img-poster{
+      float: left;
+      padding-top: 1px;
+      padding-right: 8px;
+      padding-bottom: 0px;
+      padding-left: 2px;
+      }
+      .overview{
+      font-size: 0.938em;
+      text-align:justify;
+      }
+      .poster-desc{
+      font-size: 0.938em;
+      padding-top: 1px;
+      padding-right: 8px;
+      padding-bottom: 0px;
+      padding-left: 2px;
+      text-align:justify;
+      }
+      .list-item-left-more {
+      width: 30%;
+      margin-right: -90px;
+      /*float: left;*/
+      clear: both;
+      -webkit-transition: background-color 0.2s linear;
+      -moz-transition: background-color 0.2s linear;
+      -o-transition: background-color 0.2s linear;
+      transition: background-color 0.2s linear;
+      }
+      .list-item-left-more:active {
+      background-color: #d9d9d9;
+      -webkit-transition: none;
+      -moz-transition: none;
+      -o-transition: none;
+      transition: none;
+      }
+      .list-item-left2 {
+      width: 60px;
+      margin-right: -60px;
+      float: left;
+      }
+      .avator {
+      width: 2.500em;
+      height: 3.750em;
+      border-radius: 0.188em;
+      -webkit-border-radius: 0.188em;
+      }
+      .list-item-container2 {
+      line-height: 1;
+      font-size: 0.875em;
+      /*padding: 15px 0px 15px 15px;*/
+      padding: 10px;
+      }
+   </style>
+</ons-page>

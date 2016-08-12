@@ -1,0 +1,98 @@
+    <ons-page modifier="signup-page" ng-controller="loginPageController">
+      <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button  ng-click="homeNavigator.popPage()">
+              <ons-icon icon="ion-close-round" size="18px" fixed-width="false" style="vertical-align: -4px;"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        <div class="center">Login</div>
+      </ons-toolbar>
+
+      <ons-list  style="margin-top: 20px">
+        <ons-list-item>
+          <input type="text" ng-model="data.username" class="text-input text-input--transparent" placeholder="Email address" style="width: 100%">
+        </ons-list-item>
+
+        <ons-list-item>
+          <input type="password" ng-model="data.password" class="text-input text-input--transparent" placeholder="Password" style="width: 100%">
+        </ons-list-item>
+
+      </ons-list>
+      
+
+      <div style="padding: 15px 9px">
+        <ons-button modifier="signUplarge" style="margin: 0 auto;" ng-click="SignIn()">
+          Login
+        </ons-button>
+      </div>
+      <br />
+      <ons-row>
+      <ons-col width="50%">
+          <button class="button button--quiet" modifier="quite_light" ng-click="SignInWithFB()">Login with Facebook</button>
+      </ons-col>
+      
+      <ons-col width="50%">
+          <button class="button button--quiet"  modifier="quite_light">Forgot your password?</button>
+      </ons-col>
+      </ons-row>
+<style>
+    
+
+.to-wrapper {
+  line-height: 1;
+  height: 62px;
+  padding: 10px;
+}
+
+.to-image {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+.to-name {
+  font-weight: 500;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.to-email {
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+.text-input {
+  margin-top: 4px;
+}
+
+.textarea {
+  margin-top: 4px;
+}
+.page--signup-page__background {
+  background-color: #F7F7F7;
+  color: white;
+}
+.button--signUplarge {
+    background-color: #0BD318;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 32px;
+  padding: 6px 12px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.button--large--quiet--quite_light {
+    background-color: #0BD318;
+  font-size: 10px;
+  font-weight: 100;
+  line-height: 32px;
+  padding: 6px 12px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+</style>
+    </ons-page>

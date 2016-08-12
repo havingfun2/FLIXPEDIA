@@ -1,0 +1,188 @@
+<ons-page  ng-controller="favoriteController" ng-init="editMode=false">
+   <ons-toolbar>
+      <div class="center">
+         <ons-row ng-hide="hideTitle">
+            <ons-col align="left" width="25%">
+               <button class="button button--quiet"  ng-click="editMode=true" ng-hide="editMode" ng-show="!editMode">&nbsp;&nbsp;Edit</button>
+               <button class="button button--quiet"  ng-click="editMode=false" ng-hide="!editMode" ng-show="editMode">&nbsp;&nbsp;Done</button>
+            </ons-col>
+            <ons-col align="center" width="50%">
+            <ons-icon icon="ion-ios-heart" style="color: red" fixed-width="false" style="vertical-align: -4px;"></ons-icon>
+
+      Favorites
+            </ons-col>
+            <ons-col align="right" width="25%" >
+               <button class="button button--quiet"  ng-click="deleteAllItems()" ng-hide="!editMode"  ng-show="editMode">Delete All&nbsp;&nbsp;</button>
+               <button class="button button--quiet"  ng-click="addMovieMode=true; hideTitle=true; inFormStyle={'width':'96%','margin':'10px 50px 10px 10px','text-align':'left'}; showCancel=true; searchColWidth='75%'" ng-hide="editMode" ng-show="!editMode">
+                  <ons-icon
+                     icon="ion-plus-round"
+                     size="20px"
+                     fixed-width="false"
+                     >
+                  </ons-icon>
+            </ons-col>
+            &nbsp;&nbsp;</button>
+         </ons-row>
+         <div class="navigation-bar">
+            <div class="navigation-bar__center">
+               <span >
+               <ons-row ng-init="inFormStyle={'width':'96%','margin':'5px 5px 5px 5px','text-align':'center'}; showCancel=false;searchColWidth='100%'">
+                  <ons-col width="{{searchColWidth}}" ng-hide="addMovieMode">
+                     <form ng-submit="searchMultipleTitle(searchText)" >
+                        <input type="search" class="search-input" placeholder="Search for Movies.." ng-model="searchText" ng-click="hideTitle=true; inFormStyle={'width':'96%','margin':'10px 50px 10px 10px','text-align':'left'}; showCancel=true; searchColWidth='75%'" ng-style="inFormStyle" >
+                     </form>
+                  </ons-col>
+                  <ons-col width="{{searchColWidth}}" ng-hide="!addMovieMode" ng-show="addMovieMode">
+                     <form ng-submit="searchMultipleTitle(searchText)" >
+                        <input type="search" class="search-input" placeholder="Add Movies.." ng-model="searchText" ng-keydown="getSearchKeywords(searchText)" ng-click="hideTitle=true; inFormStyle={'width':'96%','margin':'10px 50px 10px 10px','text-align':'left'}; showCancel=true; searchColWidth='75%'" ng-style="inFormStyle" >
+                     </form>
+                  </ons-col>
+                  <ons-col ng-show="showCancel">
+                     <button class="button button--quiet" ng-click="addMovieMode=false; showCancel=false; hideTitle=false; searchColWidth='100%'; inFormStyle={'width':'96%','margin':'5px 5px 5px 5px','text-align':'center'}; showKeywords=false; searchText=''">Cancel</button>
+                  </ons-col>
+               </ons-row>
+            </div>
+         </div>
+      </div>
+   </ons-toolbar>
+   <span ng-show="!showCancel" ng-hide="showCancel">
+   <br />
+   <br />
+   </span>
+   <ons-list  ng-show="showKeywords==true" ng-hide="showKeywords==false || keywordLength <= 2">
+      <ons-list-item modifier="tappable" class="list-item-container2"  ng-repeat="keyword in searchKeywords | orderBy: '-popularity'" ng-click="addToFavorites(keyword);">
+         <ons-row>
+            <ons-col width="4%" align="left">
+               <div class="list-item-left">
+                  <img ng-src="http://image.tmdb.org/t/p/w92/{{keyword.poster_path}}" class="avator">
+               </div>
+            </ons-col>
+            <ons-col width="60%" align="left">
+               <div class="list-item-right">
+                  <div class="list-item-content">
+                     <div class="name">{{keyword.original_title}}
+                        <span class="lucent">({{keyword.release_date| limitTo:4}})</span>
+                     </div>
+                  </div>
+               </div>
+            </ons-col>
+            <ons-col width="18%" align="right">
+            </ons-col>
+            <ons-col width="8%" align="right">
+               <ons-icon
+                  icon="ion-plus-circled"
+                  size="25px"
+                  fixed-width="false"
+                  style="color: #007AFF; padding-top: 15px;"
+                  ></ons-icon>
+            </ons-col>
+         </ons-row>
+      </ons-list-item>
+   </ons-list>
+   <ons-list>
+      <ons-list-item ng-hide="addMovieMode" class="list-item-container2" ng-repeat="keyword in favList | filter: searchText" ng-click="(editMode) ? deleteItem(keyword.id): gotoMovieDetails(keyword.id)">
+         <ons-row>
+            <ons-col width="9%" align="left" ng-show="editMode" ng-hide="!editMode" ng-click="deleteItem(keyword.id)">
+               <ons-icon
+                  icon="ion-minus-circled"
+                  size="25px"
+                  fixed-width="false"
+                  style="color: red; padding-top: 15px;"></ons-icon>
+               &nbsp;&nbsp;
+            </ons-col>
+            <ons-col width="4%" align="left">
+               <div class="list-item-left">
+                  <img ng-src="http://image.tmdb.org/t/p/w92/{{keyword.poster_path}}" class="avator">
+               </div>
+            </ons-col>
+            <ons-col width="70%" align="left">
+               <div class="list-item-right">
+                  <div class="list-item-content">
+                     <div class="name">{{keyword.original_title}}
+                        <span class="lucent">({{keyword.release_date| limitTo:4}})</span>
+                     </div>
+                  </div>
+                  <div class="desc">
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>
+               </div>
+            </ons-col>
+         </ons-row>
+      </ons-list-item>
+   </ons-list>
+   <style>
+      .tab {
+      line-height: 1;
+      }
+      .tab-icon {
+      font-size: 22px;
+      padding: 0;
+      margin: 0;
+      }
+      .tab-label {
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      }
+      .person-list {
+      border-top: none;
+      }
+      .person {
+      line-height: 1;
+      }
+      .person-list-header {
+      opacity: 0.6;
+      }
+      .person-name {
+      line-height: 44px;
+      }
+      .person-image {
+      width: 30px;
+      height: 30px;
+      margin-top: 8px;
+      border-radius: 2px;
+      }
+      .avator {
+      width: 40px;
+      height: 60px;
+      border-radius: 3px;
+      -webkit-border-radius: 3px;
+      }
+      .list-item-left {
+      width: 60px;
+      margin-right: -60px;
+      float: left;
+      }
+      .list-item-right {
+      width: 100%;
+      float: right;
+      }
+      .list-item-content {
+      margin-left: 50px;
+      margin-right: 30px;
+      }
+      .name {
+      font-weight: 500;
+      line-height: 16px;
+      font-size: 14px;
+      margin-bottom: 6px;
+      }
+      .lucent {
+      opacity: 0.4;
+      font-size: 11px;
+      }
+      .list-item-container2 {
+      line-height: 1;
+      font-size: 14px;
+      /*padding: 15px 0px 15px 15px;*/
+      padding: 10px;
+      }
+      .desc {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.8;
+      line-height: 1.15;
+      height: 40px;
+      }
+   </style>
+</ons-page>

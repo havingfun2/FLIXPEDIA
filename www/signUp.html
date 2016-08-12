@@ -1,0 +1,82 @@
+    <ons-page modifier="signup-page" ng-controller="signUpController">
+      <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button ng-click="homeNavigator.popPage()">
+              <ons-icon icon="ion-close-round" size="18px" fixed-width="false" style="vertical-align: -4px;"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        <div class="center">Sign Up</div>
+      </ons-toolbar>
+
+      <ons-list  style="margin-top: 20px">
+     <ons-list-item>
+          <input type="text" class="text-input text-input--transparent" ng-model="data.fullName" placeholder="Full name" style="width: 100%">
+        </ons-list-item>
+        
+        <ons-list-item>
+          <input type="text" class="text-input text-input--transparent" ng-model="data.email" placeholder="Email address" style="width: 100%">
+        </ons-list-item>
+
+        <ons-list-item>
+          <input type="password" class="text-input text-input--transparent" ng-model="data.password" placeholder="Password" style="width: 100%">
+        </ons-list-item>
+
+      </ons-list>
+      
+
+      <div style="padding: 15px 9px">
+        <ons-button modifier="signUplarge" style="margin: 0 auto;"  ng-click="SignUp()">
+          Sign Up
+        </ons-button>
+      </div>
+<style>
+    
+
+.to-wrapper {
+  line-height: 1;
+  height: 62px;
+  padding: 10px;
+}
+
+.to-image {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+.to-name {
+  font-weight: 500;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.to-email {
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+.text-input {
+  margin-top: 4px;
+}
+
+.textarea {
+  margin-top: 4px;
+}
+.page--signup-page__background {
+  background-color: #F7F7F7;
+  color: white;
+}
+.button--signUplarge {
+    background-color: #0BD318;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 32px;
+  padding: 6px 12px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+</style>
+    </ons-page>

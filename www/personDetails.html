@@ -1,0 +1,160 @@
+<ons-page ng-controller="personDetailsController">
+   <ons-toolbar>
+      <div class="left">
+         <ons-back-button>Back</ons-back-button>
+      </div>
+      <div class="center"></div>
+   </ons-toolbar>
+   <ul class="list">
+      <li class="list__header__thin"></li>
+      <li class="list__header"><span style="font-weight: 500;font-size: 22px;">{{personData.name}}</span><span style="opacity: 0.4; font-size: 14px;"> {{personData.birthday | date:'mediumDate'}} <span ng-show="personData.deathday!=null && personData.deathday !=''">- {{personData.deathday | date:'mediumDate'}}</span></span></li>
+      <li class="list__header"><span style="border:1px grey solid; border-radius: 3px; width:fit-content; width:-webkit-fit-content; width:-moz-fit-content; opacity: 0.4; font-size: 14px;"></span>
+         <span style="opacity: 0.4; font-size: 14px;" >  
+         </span>
+         <span style="opacity: 0.4; font-size: 14px;" ng-show="personData.place_of_birth!=null && personData.place_of_birth!= ''">
+         Place of Birth: {{personData.place_of_birth}}
+         </span>
+      </li>
+      <li class="list__header__thin"></li>
+   </ul>
+   <ons-list>
+   <div class="poster-desc">
+      <div class="list-item-left-more" ng-click="gotoImageDetails(personData)">
+         <div class="br-thin"></div>
+         <img class = "img-poster" ng-src="http://image.tmdb.org/t/p/w154/{{personData.profile_path}}" class="thumbnail">
+      </div>
+      <span class="overview" ng-click="gotoDescDetails(personData)">
+         {{personData.biography | limitTo:305}}
+         <span ng-if="personData.biography.length > 305">
+            <ons-icon
+               icon="ion-ios-more-outline"
+               size="20px"
+               fixed-width="false"
+               ></ons-icon>
+         </span>
+      </span>
+   </div>
+   </ons-list>
+   <br />
+   <ons-list>
+      <li class="list__header__thin"></li>
+      <ons-list-header  style="font-weight: 500;font-size: 18px;">Movie Credits</ons-list-header>
+      <li class="list__header__thin"></li>
+      <ons-list-item class="list-item-container2" ng-repeat="keyword in movieCredits | limitTo : limitSimilar" modifier="tappable" ng-click="gotoMovieDetails(keyword.id)">
+         <ons-row>
+            <ons-col width="18%" align="left">
+               <div class="list-item-left">
+                  <img ng-src="http://image.tmdb.org/t/p/w92/{{keyword.poster_path}}" class="avator">
+               </div>
+            </ons-col>
+            <ons-col width="78%" align="left">
+               <div class="name">{{keyword.original_title}}
+                  <span class="lucent">({{keyword.release_date| limitTo:4}})</span>
+               </div>
+            </ons-col>
+         </ons-row>
+      </ons-list-item>
+      <span ng-click="toggleShowMoreLessSimilar()">
+         <li class="list__header__thin"></li>
+         <ons-list-header  style="opacity:0.5">
+            {{similarDisplayText}} &nbsp;&nbsp&nbsp
+            <ons-icon
+               icon={{similarIcon}}
+               fixed-width="false"></ons-icon>
+         </ons-list-header>
+         <li class="list__header__thin"></li>
+      </span>
+   </ons-list>
+   <style>
+      .list-item-container {
+      line-height: 1;
+      font-size: 16px;
+      padding: 15px 0px 15px 15px;
+      }
+      .list-item-right {
+      width: 60%;
+      /*float: right;*/
+      }
+      .timeline-message {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.8;
+      line-height: 1.15;
+      }
+      .timeline-date {
+      float: right;
+      font-size: 12px;
+      opacity: 0.35;
+      }
+      .name {
+      font-weight: 500;
+      line-height: 16px;
+      font-size: 15px;
+      margin-bottom: 6px;
+      }
+      .creditName {
+      font-weight: 500;
+      line-height: 16px;
+      font-size: 15px;
+      margin-bottom: 6px;
+      padding-top: 17px;
+      }
+      .br-thin {
+      display: block;
+      margin: 4px 0;
+      }
+      .img-poster{
+      float: left;
+      padding-top: 1px;
+      padding-right: 8px;
+      padding-bottom: 0px;
+      padding-left: 2px;
+      }
+      .overview{
+      font-size: 15px;
+      text-align:justify;
+      }
+      .poster-desc{
+      font-size: 15px;
+      padding-top: 1px;
+      padding-right: 8px;
+      padding-bottom: 0px;
+      padding-left: 2px;
+      text-align:justify;
+      }
+      .list-item-left-more {
+      width: 30%;
+      margin-right: -90px;
+      /*float: left;*/
+      clear: both;
+      -webkit-transition: background-color 0.2s linear;
+      -moz-transition: background-color 0.2s linear;
+      -o-transition: background-color 0.2s linear;
+      transition: background-color 0.2s linear;
+      }
+      .list-item-left-more:active {
+      background-color: #d9d9d9;
+      -webkit-transition: none;
+      -moz-transition: none;
+      -o-transition: none;
+      transition: none;
+      }
+      .list-item-left2 {
+      width: 60px;
+      margin-right: -60px;
+      float: left;
+      }
+      .avator {
+      width: 40px;
+      height: 60px;
+      border-radius: 3px;
+      -webkit-border-radius: 3px;
+      }
+      .list-item-container2 {
+      line-height: 1;
+      font-size: 14px;
+      /*padding: 15px 0px 15px 15px;*/
+      padding: 10px;
+      }
+   </style>
+</ons-page>

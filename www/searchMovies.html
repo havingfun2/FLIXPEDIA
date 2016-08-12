@@ -1,0 +1,212 @@
+<ons-page ng-controller="searchMovies2">
+   <ons-toolbar>
+           <div class="center"> 
+           <span ng-hide="hideTitle">FlixPedia</span>
+        <div class="navigation-bar">
+          <div class="navigation-bar__center">
+          <span >
+          <ons-row ng-init="inFormStyle={'width':'96%','margin':'5px 5px 5px 5px','text-align':'center'}; showCancel=false;searchColWidth='100%'">
+              
+    <ons-col width="{{searchColWidth}}">
+    <form ng-submit="searchMovieWithTitle(searchText)" >
+      <input type="search" class="search-input" placeholder="Search for Movies.." ng-model="searchText" ng-keydown="getSearchKeywords(searchText)" ng-click="hideTitle=true; inFormStyle={'width':'96%','margin':'10px 50px 10px 10px','text-align':'left'}; showCancel=true; searchColWidth='75%'" ng-style="inFormStyle" >
+    </form>
+    </ons-col>
+    <ons-col ng-show="showCancel">
+    <button class="button button--quiet" ng-click="showCancel=false; hideTitle=false; searchColWidth='100%'; inFormStyle={'width':'96%','margin':'5px 5px 5px 5px','text-align':'center'}; showKeywords=false; searchText=''">Cancel</button>
+    </ons-col>
+    </ons-row>
+</div>
+</div>
+    </div>
+   </ons-toolbar>
+ <span ng-hide="showCancel">
+<br />
+</span>
+<span>
+
+        <ons-list  ng-show="showKeywords==true" ng-hide="showKeywords==false || keywordLength <= 2">
+
+        <ons-list-item modifier="chevron" class="list-item-container" ng-repeat="keyword in searchKeywords | orderBy: '-popularity'" ng-click="gotoMovieDetails(keyword.id)">
+          <div class="list-item-left">
+            <img ng-src="http://image.tmdb.org/t/p/w92/{{keyword.poster_path}}" class="avator">
+          </div>
+          <div class="list-item-right">
+            <div class="list-item-content">
+              <div class="name">{{keyword.original_title}}
+                <span class="lucent">({{keyword.release_date| limitTo:4}})</span>
+              </div>
+            </div>
+          </div>
+        </ons-list-item>
+        </ons-list>
+
+  </div>
+  </span>
+  <span ng-repeat="movie in movieList">
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;">
+         {{movie.displayName}}
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory(movie.url, movie.displayName)">
+See All
+            
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="movieDetails in movie.result" >
+            <div ng-click="gotoMovieDetails(movieDetails.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{movieDetails.backdrop_path}}" class="thumbnail">
+               <div ng-show="popMovie.backdrop_path == ''">
+                  <span style='opacity: 0.7;'>
+                     <ons-icon icon='fa-spinner' spin='true'></ons-icon>
+                     Loading...
+                  </span>
+               </div>
+               <span>{{movieDetails.original_title}}</span> <span ng-show="movieDetails.release_date !='' && movieDetails.release_date !=null" style="font-size:12px; opacity:0.8">({{movieDetails.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{movieDetails.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:11px; opacity:0.4">
+                     {{movieDetails.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+
+  </span>
+
+
+   <style>
+      .list-item-action {
+      position: absolute;
+      right: 10px;
+      top: 0px;
+      font-size: 20px;
+      opacity: 0.9;
+      color: #8E8E93;
+      /*
+        -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;*/
+      }
+      
+.carousel-tappable {
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+.carousel-tappable:active {
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.list-item-action2:active {
+          position: absolute;
+      right: 10px;
+      top: 0px;
+      font-size: 20px;
+      opacity: 0.3;
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+      .movie-list {
+      border-top: none;
+      }
+      .thumbnail {
+      width: 130px;
+      height: 100px;
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      }
+      .card {
+      background-color: red;
+      background-image: url("http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg");
+      background-repeat: no-repeat;
+      height: 250px;
+      }
+      .bodyspan{
+      color: #00000;
+      /*background-image: url("http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg");*/
+      }
+      .br-thin {
+      display: block;
+      margin: 4px 0;
+      }
+.list__item2 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  list-style: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  padding: 0 10px 0 10px;
+  margin: 0 0 0 0;
+  border-top: none;
+  border-bottom: 1px solid #ddd;
+  color: #1f1f21;
+  background-color: transparent;
+  min-height: 34px;
+  line-height: 34px;
+}
+
+.list__item__line-height2{
+    font-weight: 500;
+  line-height: 26px;
+   font-size: 13px;
+}
+.avator {
+  width: 40px;
+  height: 60px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.list-item-left {
+  width: 60px;
+  margin-right: -60px;
+  float: left;
+}
+.list-item-right {
+  width: 100%;
+  float: right;
+}
+.list-item-content {
+  margin-left: 50px;
+  margin-right: 30px;
+}
+
+.name {
+  font-weight: 500;
+  line-height: 16px;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.lucent {
+  opacity: 0.4;
+  font-size: 11px;
+}
+.list-item-container {
+  line-height: 1;
+  font-size: 14px;
+  padding: 8px 0px 8px 8px;
+}
+
+   </style>
+</ons-page>

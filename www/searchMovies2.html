@@ -1,0 +1,435 @@
+<ons-page ng-controller="searchMovies2xx">
+   <ons-toolbar >
+      <div class="left">
+         <span class="toolbar-button--outline navigation-bar__line-height" ng-click="updateToSearchResultMode()" ng-hide="block1Hide">
+         Cancel
+         </span>
+      </div>
+      <div class="center">
+         MoJo Search
+      </div>
+      <div class="right" >
+         <!--searchMovieByTitle(searchText)-->
+         <span class="toolbar-button--outline navigation-bar__line-height" ng-click="searchMultipleTitle(searchText)" ng-hide="block1Hide">
+         Search
+         </span>
+      </div>
+   </ons-toolbar>
+
+<span>
+     <div class="search-bar" >
+    <form ng-submit="searchMultipleTitle(searchText)">
+      <input type="search" class="search-input" placeholder="Search for Movies, TV Shows or Actors" ng-model="searchText">
+    </form>
+  </div>
+  </span>
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;">
+         Popular Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('popular')">
+See All
+            
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in popularMovies" >
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <div ng-show="popMovie.backdrop_path == ''">
+                  <span style='opacity: 0.7;'>
+                     <ons-icon icon='fa-spinner' spin='true'></ons-icon>
+                     Loading...
+                  </span>
+               </div>
+               <span>{{popMovie.original_title}}</span> <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:11px; opacity:0.4">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         Highest Rated Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory(highestRated)">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in highestRatedMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span> <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;">
+         Comedy
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('comedy')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in comedyMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span> <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;">
+         Crime Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('crime')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in crimeMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span> <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         Horror
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('horror')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in horrorMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span>  <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         Mystery
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('mystery')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in mysteryMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <div ng-show="popMovie.original_title==''">
+                  <p>
+                     <span style='opacity: 0.7;'>
+                        <ons-icon icon='fa-spinner' spin='true'></ons-icon>
+                        Loading...
+                  </p>
+                  </span>
+               </div>
+               <span>{{popMovie.original_title}}</span>  <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         Romantic Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('romantic')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in romanticMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span>  <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         Sci Fi Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('scifi')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in scifiMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span>  <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         Thriller Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('thriller')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in thrillerMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span> <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         War Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('war')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in warMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span>  <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <br />
+   <ons-list class="movie-list">
+      <ons-list-header></ons-list-header>
+      <ons-list-item style="font-weight: 500;" >
+         Kids Movies
+         <span class="list-item-action" style="font-size:small;" ng-click="gotoCategory('kids')">
+            See All
+            <ons-icon icon="fa-chevron-right" size="12px"></ons-icon>
+         </span>
+      </ons-list-item>
+      <ons-carousel swipeable style="margin-top: 5px; height: 200px;" overscrollable auto-scroll item-width="140px">
+         <ons-carousel-item class="carousel-tappable" ng-repeat="popMovie in kidsMovies">
+            <div ng-click="gotoMovieDetails(popMovie.id)" style="background-color: #ccc; width: 130px; height: 100px; margin: 5px; border-radius: 6px;text-align: center; font-size:small;">
+               <!-- <img ng-src="http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg" class="thumbnail">-->
+               <img ng-src="http://image.tmdb.org/t/p/w154/{{popMovie.backdrop_path}}" class="thumbnail">
+               <span>{{popMovie.original_title}}</span>  <span ng-hide="popMovie.release_date==''" style="font-size:12px; opacity:0.8">({{popMovie.release_date| limitTo:4}})</span>
+               <div class="rating">
+                  <div class="rating-num">
+                     <ons-icon icon="ion-star" style="color: #FF9500" size="15px"><span style="text-align: center; font-size:16px;color:black;opacity:0.8">&nbsp;{{popMovie.vote_average}}</span></ons-icon>
+                  </div>
+                  <div class="br-thin">
+                  </div>
+                  <div style="font-size:10px; opacity:0.3">
+                     {{popMovie.vote_count}} votes
+                  </div>
+               </div>
+            </div>
+         </ons-carousel-item>
+      </ons-carousel>
+   </ons-list>
+   <style>
+      .list-item-action {
+      position: absolute;
+      right: 10px;
+      top: 0px;
+      font-size: 20px;
+      opacity: 0.9;
+      color: #8E8E93;
+      /*
+        -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;*/
+      }
+      
+.carousel-tappable {
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+.carousel-tappable:active {
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.list-item-action2:active {
+          position: absolute;
+      right: 10px;
+      top: 0px;
+      font-size: 20px;
+      opacity: 0.3;
+  background-color: #d9d9d9;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+      .movie-list {
+      border-top: none;
+      }
+      .thumbnail {
+      width: 130px;
+      height: 100px;
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      }
+      .card {
+      background-color: red;
+      background-image: url("http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg");
+      background-repeat: no-repeat;
+      height: 250px;
+      }
+      .bodyspan{
+      color: #00000;
+      /*background-image: url("http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg");*/
+      }
+      .br-thin {
+      display: block;
+      margin: 4px 0;
+      }
+   </style>
+</ons-page>
